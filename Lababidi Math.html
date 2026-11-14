@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#0f6b55" />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Lababidi Math</title>
+  <style>
+    :root{
+      color-scheme:light dark;
+      --bg:#f4f7f2;--surface:#ffffff;--surface-2:#e7f0eb;--text:#13231e;--muted:#52635d;
+      --line:#d8e1dc;--brand:#0f6b55;--brand-strong:#094c3c;--brand-soft:#dff0e8;
+      --sun:#f2b84b;--ink:#173b32;--shadow:0 14px 38px rgba(21,55,45,.09);
+    }
+    @media(prefers-color-scheme:dark){:root{
+      --bg:#0d1714;--surface:#14221e;--surface-2:#1c3029;--text:#eef7f2;--muted:#aec0b9;
+      --line:#2a4139;--brand:#52c49f;--brand-strong:#78d9b9;--brand-soft:#183f33;
+      --sun:#f2c15f;--ink:#dff7ee;--shadow:0 14px 38px rgba(0,0,0,.22);
+    }}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans Arabic",sans-serif;line-height:1.7}
+    button,input{font:inherit} button{cursor:pointer} a{color:inherit;text-decoration:none}
+    .app{max-width:1180px;margin:auto;min-height:100vh;padding:24px 22px 110px}
+    .topline{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}
+    .status{display:flex;align-items:center;gap:9px;font-family:"Noto Kufi Arabic",sans-serif;font-weight:800;color:var(--brand)}
+    .status small{font-family:"Noto Sans Arabic",sans-serif;font-weight:500;color:var(--muted);margin-right:5px}
+    .status::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 5px var(--brand-soft)}
+    .demo-tag{font-size:.82rem;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:2px}
+    .hero{position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr .8fr;min-height:390px;border-radius:30px;background:var(--ink);color:#f3fff9;box-shadow:var(--shadow)}
+    .hero-copy{padding:54px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+    .hero h1{font-family:"Noto Kufi Arabic",sans-serif;font-size:clamp(2.1rem,5vw,4.15rem);line-height:1.35;margin:0 0 18px;max-width:770px;letter-spacing:-.03em}
+    .hero p{font-size:1.1rem;color:#cde7dd;max-width:620px;margin:0 0 28px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{border:0;border-radius:13px;padding:12px 19px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:9px}
+    .btn-primary{background:var(--sun);color:#24311d}.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff}
+    .math-art{position:relative;min-height:390px;background:linear-gradient(145deg,rgba(255,255,255,.03),rgba(255,255,255,.12))}
+    .orbit{position:absolute;border:1px solid rgba(255,255,255,.24);border-radius:50%;inset:48px 20px 34px 40px;transform:rotate(-16deg)}
+    .formula{position:absolute;font-family:Georgia,serif;font-weight:700;color:#fff;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(4px);border-radius:17px;padding:12px 18px;font-size:1.3rem;direction:ltr}
+    .f1{top:48px;left:16%}.f2{top:145px;right:12%;font-size:2rem;color:var(--sun)}.f3{bottom:52px;left:13%}
+    .dot{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--sun);top:58%;left:18%;box-shadow:0 0 0 10px rgba(242,184,75,.12)}
+    .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 42px}
+    .quick-item{background:var(--surface);padding:20px;border:1px solid var(--line);display:flex;align-items:center;gap:14px}
+    .quick-item:first-child{border-radius:0 18px 18px 0}.quick-item:last-child{border-radius:18px 0 0 18px}
+    .num{font-family:"Noto Kufi Arabic";font-size:1.6rem;font-weight:800;color:var(--brand);min-width:48px}.quick small{display:block;color:var(--muted)}
+    .section{margin-top:38px;scroll-margin-top:16px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}
+    .section h2{font-family:"Noto Kufi Arabic";font-size:clamp(1.35rem,3vw,2rem);margin:0}.section-head p{margin:3px 0 0;color:var(--muted)}
+    .units{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .unit{background:var(--surface);border:1px solid var(--line);padding:22px;border-radius:20px;min-height:190px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
+    .unit:hover{border-color:var(--brand);transform:translateY(-2px)}
+    .unit-top{display:flex;justify-content:space-between;align-items:center}.unit-index{font-family:"Noto Kufi Arabic";font-size:.76rem;color:var(--brand);font-weight:800}.unit .symbol{font-family:Georgia,serif;font-size:1.65rem;color:var(--brand)}
+    .unit h3{font-family:"Noto Kufi Arabic";font-size:1.06rem;margin:18px 0 5px}.unit p{color:var(--muted);margin:0;font-size:.93rem}.unit .progress{height:5px;background:var(--surface-2);border-radius:8px;margin-top:auto;overflow:hidden}.progress span{display:block;width:0;height:100%;background:var(--brand)}
+    .unit.available .progress span{width:35%}.lesson-demo{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+    .board{background:#102c25;color:#ecfff7;border-radius:23px;padding:28px;min-height:320px;position:relative;overflow:hidden}.board h3{font-family:"Noto Kufi Arabic";margin:0 0 26px}.equation{font-family:Georgia,serif;direction:ltr;text-align:center;font-size:clamp(1.75rem,5vw,3rem);margin:45px 0}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:.82rem;color:#bddacf}.step{border-top:1px solid rgba(255,255,255,.22);padding-top:10px}
+    .lesson-info{background:var(--surface);border:1px solid var(--line);border-radius:23px;padding:28px;display:flex;flex-direction:column}.lesson-info h3{font-family:"Noto Kufi Arabic";margin:0 0 7px}.lesson-info p{color:var(--muted);margin:0 0 22px}.lesson-list{list-style:none;padding:0;margin:0}.lesson-list li{display:flex;gap:11px;align-items:center;padding:13px 0;border-top:1px solid var(--line)}
+    .check{width:23px;height:23px;flex:0 0 auto;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:800}
+    .activation{margin-top:46px;background:var(--surface);border:1px solid var(--line);border-radius:24px;display:grid;grid-template-columns:.85fr 1.15fr;overflow:hidden}
+    .activation-copy{padding:34px;background:var(--brand-soft)}.activation-copy h2{font-family:"Noto Kufi Arabic";margin:0 0 10px}.activation-copy p{color:var(--muted);margin:0}.payline{display:flex;gap:9px;align-items:center;margin-top:20px;font-weight:700;color:var(--brand)}
+    .activation-form{padding:34px;display:flex;flex-direction:column;justify-content:center}.activation-form label{font-weight:800;margin-bottom:8px}.input-row{display:flex;gap:10px;direction:ltr}.input-row input{min-width:0;flex:1;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-transform:uppercase}.input-row input:focus{outline:3px solid var(--brand-soft);border-color:var(--brand)}
+    .activate-btn{background:var(--brand);color:#fff;border:0;border-radius:12px;padding:12px 20px;font-weight:800}.hint{font-size:.82rem;color:var(--muted);margin:8px 0 0}.feedback{display:none;margin-top:13px;padding:12px 14px;border-radius:11px;background:var(--brand-soft);color:var(--brand-strong);font-weight:700}.feedback.show{display:block}.feedback.error{background:#ffe6df;color:#9e3524}
+    .bottom-nav{display:none}
+    footer{margin-top:50px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;gap:20px}
+    @media(max-width:760px){
+      .app{padding:14px 14px 100px}.topline{margin:3px 4px 14px}.hero{display:block;min-height:auto;border-radius:24px}.hero-copy{padding:34px 24px 30px}.hero h1{font-size:2.2rem}.hero p{font-size:.98rem}.math-art{min-height:190px}.orbit{inset:25px 30px}.f1{top:23px}.f2{top:82px}.f3{bottom:25px}.quick{grid-template-columns:1fr;margin:12px 0 34px;gap:8px}.quick-item,.quick-item:first-child,.quick-item:last-child{border-radius:14px;padding:14px 18px}.quick-item{justify-content:space-between}.units{grid-template-columns:1fr 1fr;gap:10px}.unit{min-height:170px;padding:17px;border-radius:16px}.lesson-demo{grid-template-columns:1fr}.board{min-height:280px;padding:22px}.steps{grid-template-columns:1fr}.step:not(:last-child){display:none}.lesson-info{padding:22px}.activation{grid-template-columns:1fr}.activation-copy,.activation-form{padding:24px}.input-row{flex-direction:column}.activate-btn{width:100%}footer{display:block;text-align:center}.bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(3,1fr);z-index:20;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--surface) 94%,transparent);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));backdrop-filter:blur(12px)}.bottom-nav a{font-size:.76rem;font-weight:700;color:var(--muted);text-align:center;padding:7px 4px}.bottom-nav span{display:block;font-size:1.15rem;line-height:1.2}.bottom-nav a:first-child{color:var(--brand)}}
+    @media(max-width:390px){.units{grid-template-columns:1fr}.unit{min-height:145px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="topline"><div class="status"><bdi>Lababidi Math</bdi><small>منصة تعلّم الرياضيات</small></div><div class="demo-tag">نسخة عرض تفاعلية</div></div>
+
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <h1>رياضيات البكالوريا، خطوة بخطوة.</h1>
+        <p>شرح واضح بالفيديو، مذكرات مرتبة، ومسار دراسي يساعدك تراجع الفكرة قبل أن تحلّ المسألة.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#units">ابدأ الجولة</a>
+          <a class="btn btn-ghost" href="#activate">لديّ كود تفعيل</a>
+        </div>
+      </div>
+      <div class="math-art" aria-label="معادلات رياضية توضيحية">
+        <div class="orbit"></div><div class="dot"></div>
+        <div class="formula f1">f′(x) = 2x + 3</div>
+        <div class="formula f2">∫</div>
+        <div class="formula f3">sin²θ + cos²θ = 1</div>
+      </div>
+    </section>
+
+    <section class="quick" aria-label="مزايا المنصة">
+      <div class="quick-item"><div><b>شرح مرئي</b><small>فيديوهات مركّزة لكل فكرة</small></div><div class="num">01</div></div>
+      <div class="quick-item"><div><b>مذكرات PDF</b><small>قواعد وأمثلة للتحميل</small></div><div class="num">02</div></div>
+      <div class="quick-item"><div><b>تفعيل مباشر</b><small>ادفع عبر شام كاش وأدخل الكود</small></div><div class="num">03</div></div>
+    </section>
+
+    <section class="section" id="units">
+      <div class="section-head"><div><h2>الوحدات الدراسية</h2><p>تصفّح نموذجاً من تنظيم محتوى المنهج.</p></div></div>
+      <div class="units">
+        <article class="unit available"><div class="unit-top"><span class="unit-index">الوحدة ١</span><span class="symbol">f(x)</span></div><h3>النهايات والاستمرار</h3><p>مدخل إلى النهايات، الحالات غير المعيّنة، والاستمرار.</p><div class="progress"><span></span></div></article>
+        <article class="unit"><div class="unit-top"><span class="unit-index">الوحدة ٢</span><span class="symbol">f′</span></div><h3>الاشتقاق</h3><p>قواعد الاشتقاق وتطبيقاتها ودراسة تغيّرات التابع.</p><div class="progress"><span></span></div></article>
+        <article class="unit"><div class="unit-top"><span class="unit-index">الوحدة ٣</span><span class="symbol">∫</span></div><h3>التكامل</h3><p>التابع الأصلي، التكامل المحدد، والمساحات.</p><div class="progress"><span></span></div></article>
+        <article class="unit"><div class="unit-top"><span class="unit-index">الوحدة ٤</span><span class="symbol">z</span></div><h3>الأعداد المركبة</h3><p>الشكل الجبري والمثلثي وحل المعادلات.</p><div class="progress"><span></span></div></article>
+        <article class="unit"><div class="unit-top"><span class="unit-index">الوحدة ٥</span><span class="symbol">P(A)</span></div><h3>الاحتمالات</h3><p>الاحتمال الشرطي، الاستقلال، والمتغيرات العشوائية.</p><div class="progress"><span></span></div></article>
+        <article class="unit"><div class="unit-top"><span class="unit-index">الوحدة ٦</span><span class="symbol">→v</span></div><h3>الهندسة الفراغية</h3><p>المستقيمات والمستويات والجداء السلمي.</p><div class="progress"><span></span></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="lesson">
+      <div class="section-head"><div><h2>معاينة درس</h2><p>مثال على تجربة الطالب داخل صفحة الشرح.</p></div></div>
+      <div class="lesson-demo">
+        <div class="board">
+          <h3>اشتقاق تابع مركّب</h3>
+          <div class="equation">y = (2x + 1)³<br><small>y′ = 6(2x + 1)²</small></div>
+          <div class="steps"><div class="step">١. حدّد التابع الخارجي</div><div class="step">٢. اشتقّ التابع الداخلي</div><div class="step">٣. طبّق قاعدة السلسلة</div></div>
+        </div>
+        <div class="lesson-info">
+          <h3>قاعدة السلسلة</h3><p>درس نموذجي يوضّح كيف يجتمع الفيديو مع المذكرة والأسئلة في مكان واحد.</p>
+          <ul class="lesson-list">
+            <li><span class="check">✓</span><span>شرح الفكرة بأسلوب مبسّط</span></li>
+            <li><span class="check">✓</span><span>أمثلة محلولة خطوة بخطوة</span></li>
+            <li><span class="check">✓</span><span>ملخص القوانين بصيغة PDF</span></li>
+            <li><span class="check">✓</span><span>تمارين تدريبية بعد الدرس</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="activation" id="activate">
+      <div class="activation-copy"><h2>افتح المحتوى بالكود</h2><p>بعد التحويل عبر شام كاش، يصلك كود تفعيل خاص لفتح الدروس المدفوعة.</p><div class="payline"><span>شام كاش</span><span>←</span><span>كود تفعيل</span><span>←</span><span>ابدأ الدراسة</span></div></div>
+      <form class="activation-form" id="activationForm">
+        <label for="code">كود التفعيل</label>
+        <div class="input-row"><input id="code" name="code" autocomplete="off" placeholder="LAB-DEMO" aria-describedby="hint"><button class="activate-btn" type="submit">تجربة الكود</button></div>
+        <p class="hint" id="hint">لنسخة العرض استخدم: LAB-DEMO</p><div class="feedback" id="feedback" role="status"></div>
+      </form>
+    </section>
+
+    <footer><span>واجهة عرض لمنصة تعليمية لطلاب البكالوريا.</span><span>المحتوى الظاهر نموذجي للمعاينة.</span></footer>
+  </main>
+
+  <nav class="bottom-nav" aria-label="التنقل الرئيسي">
+    <a href="#home"><span>⌂</span>الرئيسية</a><a href="#units"><span>∑</span>الوحدات</a><a href="#activate"><span>◇</span>التفعيل</a>
+  </nav>
+
+  <script>
+    (function(){
+      var form=document.getElementById('activationForm');
+      var input=document.getElementById('code');
+      var feedback=document.getElementById('feedback');
+      form.addEventListener('submit',function(e){
+        e.preventDefault();
+        var code=input.value.trim().toUpperCase();
+        feedback.classList.add('show');
+        if(code==='LAB-DEMO'){
+          feedback.classList.remove('error');
+          feedback.textContent='تم فتح الدرس النموذجي لهذه الجلسة. هذه تجربة للواجهة فقط.';
+          document.getElementById('lesson').scrollIntoView({behavior:'smooth'});
+        }else{
+          feedback.classList.add('error');
+          feedback.textContent='الكود غير صحيح في نسخة العرض. جرّب LAB-DEMO';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
